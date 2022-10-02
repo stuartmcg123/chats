@@ -1,8 +1,11 @@
-﻿using message.models;
+﻿using message.dto;
+using message.models;
 
 namespace message.services;
 public interface IMessageService
 {
-    Task<IEnumerable<Message>> GetMessages();
+    Task AddMessage(CreateMessageDto createMessageDto);
+    Task DeleteMessage(string id);
+    Task<IEnumerable<MessageDto>> GetMessages();
 
 }
