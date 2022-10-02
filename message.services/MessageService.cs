@@ -9,7 +9,7 @@ internal sealed class MessageService : IMessageService
 {
     private readonly IMongoCollection<Message> _messages;
     private readonly HttpContext _context;
-    private string _userId => _context.User.Identity.Name;
+    private string _userId => "1";//_context.User.Identity.Name;
     public MessageService(IMongoCollection<Message> messages,
         IHttpContextAccessor httpContextAccessor)
     {
