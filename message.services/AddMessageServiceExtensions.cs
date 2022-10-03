@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using message.models;
+﻿using message.models;
+using message.services;
 using MongoDB.Driver;
 
-namespace message.services;
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class AddMessageServiceExtensions
 {
-    public static IServiceCollection Add(this IServiceCollection services)
+    public static IServiceCollection AddMessageServices(this IServiceCollection services)
     {
         services.AddSingleton<MongoClient>((sp) =>
         {

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "message.api", "message.api\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "message.models", "message.models\message.models.csproj", "{BD008D5E-4A0D-4C2B-8110-DC4A3AD97CC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "message.dto", "..\message.dto\message.dto.csproj", "{E29B22A8-DEC3-4BAE-BAF4-E63D02A61A55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "message.dto", "..\message.dto\message.dto.csproj", "{E29B22A8-DEC3-4BAE-BAF4-E63D02A61A55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "message.handlers", "message.handlers\message.handlers.csproj", "{07EB40F5-4F75-4C57-9724-F261B142D448}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E29B22A8-DEC3-4BAE-BAF4-E63D02A61A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E29B22A8-DEC3-4BAE-BAF4-E63D02A61A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E29B22A8-DEC3-4BAE-BAF4-E63D02A61A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07EB40F5-4F75-4C57-9724-F261B142D448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07EB40F5-4F75-4C57-9724-F261B142D448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07EB40F5-4F75-4C57-9724-F261B142D448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07EB40F5-4F75-4C57-9724-F261B142D448}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
