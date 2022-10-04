@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MessageViewerComponent } from './message-viewer/message-viewer.component';
 import { MessageComponent } from './message/message.component';
 import { NewMessageComponent } from './new-message/new-message.component';
+import { AuthConfigModule } from './auth/auth-config.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NewMessageComponent } from './new-message/new-message.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthConfigModule
   ],
   providers: [],
   bootstrap: [AppComponent]
