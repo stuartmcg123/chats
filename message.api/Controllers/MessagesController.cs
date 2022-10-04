@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using message.dto;
 using message.handlers.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,14 @@ namespace message.api.Controllers
                    .Send(new GetMessagesRequest());
 
             return Ok(messages);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]CreateMessageDto dto)
+        {
+            await _mediator.Send(new CreateMessagesRequest(dto));
+
+            return NoContent();
         }
     }
 }

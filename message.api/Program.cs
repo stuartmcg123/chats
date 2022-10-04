@@ -1,4 +1,5 @@
 using MediatR;
+using message.handlers;
 using message.services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +12,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMessageServices();
+builder.Services.AddCors(p => p.AddDefaultPolicy(dp => dp
+.WithOrigins("http://localhost:4200")
+.AllowAnyHeader()
+.AllowAnyMethod()
+.AllowCredentials()
+));
 //builder.Services.MapHub();
 builder.Services.AddSignalR();
-//builder.Services.AddMediatR();
+builder.Services.AddMediatR(typeof(GetMessagesRequestHandler).Assembly);
 
 var app = builder.Build();
 
@@ -23,9 +30,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors();
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();

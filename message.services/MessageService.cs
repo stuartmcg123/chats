@@ -35,7 +35,7 @@ internal sealed class MessageService : IMessageService
         })).ToListAsync();
     }
 
-    public async Task AddMessage(CreateMessageDto createMessageDto)
+    public async Task<MessageDto> AddMessage(CreateMessageDto createMessageDto)
     {
         var message = new Message()
         {
@@ -47,6 +47,14 @@ internal sealed class MessageService : IMessageService
 
         await _messages
             .InsertOneAsync(message);
+
+        return new MessageDto
+        {
+            Id = message.Id,
+            Created = message.Created,
+            Body = message.Body,
+            From = message.From
+        };
     }
 
     public async Task DeleteMessage(string id)
