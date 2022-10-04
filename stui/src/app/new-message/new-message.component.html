@@ -1,0 +1,5 @@
+<form [formGroup]="form">
+    <input formControlName="message">
+    <button (click)="create()" [disabled]="!form.valid">Send</button>
+    <!-- {{form.value | json}} -->
+</form>
