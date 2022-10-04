@@ -30,11 +30,10 @@ export class NewMessageComponent implements OnInit, OnDestroy {
   }
 
   create() {
-    console.log("sending")
     try {
       this.messageService
         .hub
-        .invoke("Abc", {body: this.form.get('message')?.value, to:'bobby'})
+        .invoke("SendMessage", {body: this.form.get('message')?.value, to:'bobby'})
         .then(c => console.log('Success'))
         .catch(e => console.error(e));
     } catch (err) {

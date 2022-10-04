@@ -17,7 +17,7 @@ namespace message.services
             _messageService = messageService;
         }
 
-        public async Task Abc(CreateMessageDto dto)
+        public async Task SendMessage(CreateMessageDto dto)
         {
           var message =  await _messageService
                     .AddMessage(dto);
