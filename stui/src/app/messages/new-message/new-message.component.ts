@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Message } from '../message';
-import { MessageHttpService } from '../message-http.service';
-import { MessageService } from '../message.service';
+import { Message } from '../../message';
+import { MessageHttpService } from '../../message-http.service';
+import { MessageService } from '../../message.service';
 
 @Component({
   selector: 'app-new-message',
@@ -17,7 +17,7 @@ export class NewMessageComponent implements OnInit, OnDestroy {
   })
   constructor(
     private messageService: MessageService,
-    private fb: FormBuilder) { }
+    private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.messageService
@@ -30,11 +30,10 @@ export class NewMessageComponent implements OnInit, OnDestroy {
   }
 
   create() {
-    console.log("sending")
     try {
       this.messageService
         .hub
-        .invoke("Abc", {body: this.form.get('message')?.value, to:'bobby'})
+        .invoke("SendMessage", {body: this.form.get('message')?.value, to:'bobby'})
         .then(c => console.log('Success'))
         .catch(e => console.error(e));
     } catch (err) {
