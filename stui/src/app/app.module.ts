@@ -5,17 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MessageViewerComponent } from './message-viewer/message-viewer.component';
-import { MessageComponent } from './message/message.component';
-import { NewMessageComponent } from './new-message/new-message.component';
 import { AuthConfigModule } from './auth/auth-config.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MessageViewerComponent,
-    MessageComponent,
-    NewMessageComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -5,11 +5,11 @@ import { AuthModule } from 'angular-auth-oidc-client';
 @NgModule({
     imports: [AuthModule.forRoot({
         config: {
-              authority: 'https://identity.stuartmcgillivray.com/',
-              redirectUrl: window.location.origin,
-              postLogoutRedirectUri: window.location.origin,
-              clientId: 'please-enter-clientId',
-              scope: 'please-enter-scopes', // 'openid profile offline_access ' + your scopes
+              authority: 'https://identity.stuartmcgillivray.com',
+              redirectUrl: "http://localhost:4200/callback",
+              postLogoutRedirectUri: "http://localhost:4200",
+              clientId: 'bestie-chat',
+              scope: 'openid profile offline_access',
               responseType: 'code',
               silentRenew: true,
               useRefreshToken: true,
