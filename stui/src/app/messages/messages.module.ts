@@ -6,6 +6,7 @@ import { MessageViewerComponent } from './message-viewer/message-viewer.componen
 import { MessageComponent } from './message/message.component';
 import { NewMessageComponent } from './new-message/new-message.component';
 import { MessageContainerComponent } from './message-container/message-container.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MessageContainerComponent } from './message-container/message-container
     MessageContainerComponent],
   imports: [
     CommonModule,
-    MessagesRoutingModule
+    MessagesRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class MessagesModule { }
