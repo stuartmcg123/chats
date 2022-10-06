@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\message.dto\message.dto.csproj" />
     <ProjectReference Include="..\message.models\message.models.csproj" />
+    <ProjectReference Include="..\message.utils\message.utils.csproj" />
   </ItemGroup>
 
 </Project>

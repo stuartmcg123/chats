@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
@@ -16,6 +17,7 @@
     <ProjectReference Include="..\..\message.dto\message.dto.csproj" />
     <ProjectReference Include="..\message.handlers\message.handlers.csproj" />
     <ProjectReference Include="..\message.services\message.services.csproj" />
+    <ProjectReference Include="..\message.utils\message.utils.csproj" />
   </ItemGroup>
 
 </Project>
