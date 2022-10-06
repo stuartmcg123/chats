@@ -1,7 +1,6 @@
 <ng-container *ngIf="messages">
 
 <div *ngFor="let message of messages">
-    {{message.body}}
-    {{message.created | date:'medium'}}
+    <app-message [message]="message"></app-message>
 </div>
 </ng-container>

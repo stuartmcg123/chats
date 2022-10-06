@@ -1,6 +1,6 @@
 ﻿using message.dto;
 using message.models;
-using Microsoft.AspNetCore.Http;
+using message.utils;
 using MongoDB.Driver;
 
 namespace message.services;
@@ -8,22 +8,25 @@ namespace message.services;
 internal sealed class MessageService : IMessageService
 {
     private readonly IMongoCollection<Message> _messages;
-    private readonly HttpContext _context;
-    private string _userId => "1";//_context.User.Identity.Name;
-    public MessageService(IMongoCollection<Message> messages,
-        IHttpContextAccessor httpContextAccessor)
+    private readonly IUserIdentityProvider _userIdentityProvider;
+
+    private string _userId => _userIdentityProvider.Get();
+
+    public MessageService(
+        IMongoCollection<Message> messages,
+        IUserIdentityProvider userIdentityProvider)
     {
         _messages = messages;
-        _context = httpContextAccessor.HttpContext;
+        _userIdentityProvider = userIdentityProvider;
     }
 
     public async Task<IEnumerable<MessageDto>> GetMessages()
     {
         var messages = _messages
              .Find(Builders<Message>.Filter.Empty)
-             .Sort(Builders<Message>.Sort.Descending(c => c.Created));
+             .Sort(Builders<Message>.Sort.Ascending(c => c.Created));
 
-        return await messages.Project<MessageDto>(
+        return await messages.Project(
             Builders<Message>
             .Projection
             .Expression(m => new MessageDto
