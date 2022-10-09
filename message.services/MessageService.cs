@@ -28,16 +28,23 @@ internal sealed class MessageService : IMessageService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<MessageDto>> GetMessages()
+    public async Task<IEnumerable<MessageDto>> GetMessages(int page = 0, int pageSize = 50)
     {
         var messages = _messages
              .Find(Builders<Message>.Filter.Empty)
-             .Sort(Builders<Message>.Sort.Ascending(c => c.Created));
+             .Sort(Builders<Message>.Sort.Descending(c => c.Created))
+             .Skip(page * pageSize)             
+             .Limit(pageSize);
 
-        return await messages.Project(
+
+        var castedMessages = await messages.Project(
             Builders<Message>
             .Projection
             .Expression(m => _mapper.Map<MessageDto>(m))).ToListAsync();
+
+        castedMessages.Reverse();
+
+        return castedMessages;
     }
 
     public async Task<MessageDto> AddMessage(CreateMessageDto createMessageDto)
