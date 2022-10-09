@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using message.dto;
 using message.handlers.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +26,11 @@ namespace message.api.Controllers
             return Ok(messages);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateMessageDto dto)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
-            await _mediator.Send(new CreateMessagesRequest(dto));
+            await _mediator
+                .Send(new DeleteMessagesRequest(id));
 
             return NoContent();
         }

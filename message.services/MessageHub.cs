@@ -1,13 +1,10 @@
 ﻿using message.dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace message.services
 {
+    [Authorize]
     public class MessageHub : Hub
     {
         private readonly IMessageService _messageService;

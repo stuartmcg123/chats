@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Message } from 'src/app/message';
+import { MessageHttpService } from 'src/app/message-http.service';
 
 @Component({
   selector: 'app-message',
@@ -9,9 +10,19 @@ import { Message } from 'src/app/message';
 export class MessageComponent implements OnInit {
   @Input()
   message!: Message;
-  constructor() { }
+
+  @Output()
+  deleted = new EventEmitter<string>();
+  constructor(private messageService: MessageHttpService) { }
 
   ngOnInit(): void {
   }
 
+  delete() {
+    this.messageService
+      .delete(this.message.id)
+      .subscribe(c => {
+        this.deleted.next(this.message.id)
+      })
+  }
 }

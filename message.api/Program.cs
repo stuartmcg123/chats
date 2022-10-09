@@ -1,8 +1,10 @@
 using MediatR;
 using message.handlers;
+using message.profile;
 using message.services;
 using message.utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,7 @@ builder.Services.AddCors(p => p.AddDefaultPolicy(dp => dp
 builder.Services.AddSignalR();
 builder.Services.AddMediatR(typeof(GetMessagesRequestHandler).Assembly);
 builder.Services.AddTransient<IUserIdentityProvider, UserIdentityProvider>();
+builder.Services.AddAutoMapper(typeof(MessageProfile).Assembly);
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
@@ -49,6 +52,15 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
+app.Use((context, next) =>
+{
+    var token = context.Request.Query["access_token"].ToString();
+
+    if (context.Request.Path.StartsWithSegments("/messagehub") && !string.IsNullOrEmpty(token))
+        context.Request.Headers.Authorization = $"Bearer {token}";
+    return next();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -56,3 +68,4 @@ app.MapControllers();
 app.MapHub<MessageHub>("/messagehub");
 
 app.Run();
+
