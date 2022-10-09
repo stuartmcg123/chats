@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Subject, takeUntil } from 'rxjs';
 import { Message } from '../../message';
 import { MessageHttpService } from '../../message-http.service';

@@ -18,10 +18,10 @@ namespace message.api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int page = 0, int pageSize = 5)
         {
             var messages = await _mediator
-                   .Send(new GetMessagesRequest());
+                   .Send(new GetMessagesRequest(page, pageSize));
 
             return Ok(messages);
         }
