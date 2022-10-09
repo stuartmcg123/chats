@@ -1,6 +1,8 @@
-﻿using message.dto;
+﻿using AutoMapper;
+using message.dto;
 using message.models;
 using message.utils;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace message.services;
@@ -9,15 +11,21 @@ internal sealed class MessageService : IMessageService
 {
     private readonly IMongoCollection<Message> _messages;
     private readonly IUserIdentityProvider _userIdentityProvider;
+    private readonly IMapper _mapper;
+    private readonly ILogger<MessageService> _logger;
 
     private string _userId => _userIdentityProvider.Get();
 
     public MessageService(
         IMongoCollection<Message> messages,
-        IUserIdentityProvider userIdentityProvider)
+        IUserIdentityProvider userIdentityProvider,
+        IMapper mapper,
+        ILogger<MessageService> logger)
     {
         _messages = messages;
         _userIdentityProvider = userIdentityProvider;
+        _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<IEnumerable<MessageDto>> GetMessages()
@@ -29,42 +37,31 @@ internal sealed class MessageService : IMessageService
         return await messages.Project(
             Builders<Message>
             .Projection
-            .Expression(m => new MessageDto
-        {
-            Id = m.Id, 
-            Body = m.Body,
-            Created = m.Created,
-            From = m.From
-        })).ToListAsync();
+            .Expression(m => _mapper.Map<MessageDto>(m))).ToListAsync();
     }
 
     public async Task<MessageDto> AddMessage(CreateMessageDto createMessageDto)
     {
-        var message = new Message()
+        try
         {
-            Body = createMessageDto.Body,
-            Created = DateTime.UtcNow,
-            Modified = DateTime.UtcNow,
-            From = _userId
-        };
+            var message = _mapper.Map<Message>(createMessageDto);
 
-        await _messages
-            .InsertOneAsync(message);
+            await _messages
+                .InsertOneAsync(message);
 
-        return new MessageDto
+            return _mapper.Map<MessageDto>(message);
+        }
+        catch (Exception ex)
         {
-            Id = message.Id,
-            Created = message.Created,
-            Body = message.Body,
-            From = message.From
-        };
+            _logger.LogError(ex, "Failed to map dto to message");
+            throw;
+        }
     }
 
     public async Task DeleteMessage(string id)
     {
         await _messages
                .DeleteOneAsync(Builders<Message>.Filter.And(
-                   Builders<Message>.Filter.Eq(c => c.Id, id),
-                   Builders<Message>.Filter.Eq(c => c.From, id)));
+                   Builders<Message>.Filter.Eq(c => c.Id, id)));
     }
 }

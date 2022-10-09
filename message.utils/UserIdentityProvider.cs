@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace message.utils
 {
@@ -11,10 +12,15 @@ namespace message.utils
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string Get() => _httpContextAccessor
+        public string Get()
+        {
+         var name = _httpContextAccessor
                  .HttpContext
                  .User
-                 .Identity
-                 .Name;
+                 .Claims
+                 .FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier);
+
+            return name.Value;
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Message } from '../../message';
 import { MessageHttpService } from '../../message-http.service';
@@ -13,8 +13,13 @@ import { MessageService } from '../../message.service';
 export class NewMessageComponent implements OnInit, OnDestroy {
   private $messages!: Observable<Message[]>;
   form = this.fb.group({
-    'message':['', Validators.required]
+    'message': ['', Validators.required]
   })
+
+  get message(): FormControl {
+    return this.form.get('message') as FormControl;
+  }
+
   constructor(
     private messageService: MessageService,
     private fb: UntypedFormBuilder) { }
@@ -33,8 +38,8 @@ export class NewMessageComponent implements OnInit, OnDestroy {
     try {
       this.messageService
         .hub
-        .invoke("SendMessage", {body: this.form.get('message')?.value, to:'bobby'})
-        .then(c => console.log('Success'))
+        .invoke("SendMessage", { body: this.message.value, to: 'bobby' })
+        .then(c => this.message.setValue(null))
         .catch(e => console.error(e));
     } catch (err) {
       console.error(err)
