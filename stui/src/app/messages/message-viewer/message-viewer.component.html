@@ -1,5 +1,6 @@
 <ng-container *ngIf="messages">
-
+<button (click)="loadMore()" [disabled]="noMoreMessages">Load more</button>
+<p *ngIf="noMoreMessages">That's all ya got!</p>
 <div *ngFor="let message of messages">
     <app-message (deleted)="messageDeleted($event)" [message]="message"></app-message>
 </div>

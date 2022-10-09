@@ -8,17 +8,16 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MessageHttpService {
-readonly messageUrl = `${environment.apiUrl}/api/messages`
+  readonly messageUrl = `${environment.apiUrl}/api/messages`
   constructor(private http: HttpClient) { }
 
-  get(): Observable<Message[]> {
+  get(page: number = 0, pageSize: number = 10): Observable<Message[]> {
     return this.http
-      .get<Message[]>(this.messageUrl)
+      .get<Message[]>(`${this.messageUrl}?page=${page}&pageSize=${pageSize}`)
       .pipe(take(1));
   }
 
   delete(id: string): Observable<void> {
-    alert('About to delete!')
     return this.http
       .delete<void>(`${this.messageUrl}/${id}`)
       .pipe(take(1));

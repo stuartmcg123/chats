@@ -19,6 +19,8 @@ export class MessageComponent implements OnInit {
   }
 
   delete() {
+    if (!confirm('Are you sure?'))
+      return;
     this.messageService
       .delete(this.message.id)
       .subscribe(c => {

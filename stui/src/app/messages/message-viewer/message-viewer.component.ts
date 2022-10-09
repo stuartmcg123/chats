@@ -12,6 +12,9 @@ import { MessageService } from '../../message.service';
 export class MessageViewerComponent implements OnInit, OnDestroy {
   messages!: Message[];
   beingDestroyed = new Subject<void>();
+  page: number = 0;
+  pageSize: number = 5;
+  noMoreMessages = false;
 
   constructor(
     private httpMessageService: MessageHttpService,
@@ -19,7 +22,7 @@ export class MessageViewerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.httpMessageService
-      .get()
+      .get(this.page, this.pageSize)
       .subscribe((c: Message[]) => this.messages = c);
 
     this.messageService.$newMessage
@@ -27,6 +30,19 @@ export class MessageViewerComponent implements OnInit, OnDestroy {
       .subscribe(c =>
         this.messages.push(c)
       );
+  }
+
+  loadMore() {
+    this.page += 1;
+    this.httpMessageService
+      .get(this.page, this.pageSize)
+      .subscribe((c: Message[]) => {
+        if (Array.isArray(c) && !c.length || c.length < this.pageSize)
+          this.noMoreMessages = true;
+        c = c.concat(this.messages);
+        this.messages = c;
+      });
+
   }
 
   messageDeleted(id: string) {
