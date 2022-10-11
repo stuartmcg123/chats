@@ -1,3 +1,5 @@
-{{message.body}}
-{{message.created | date:'medium'}}
-<button (click)="delete()">Delete</button>
+<div class="message" [ngClass]="{messageSender: token}">
+    {{message.body}}
+    {{message.created | date:'medium'}}
+    <button (click)="delete()">Delete</button>
+</div>
