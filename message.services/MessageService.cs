@@ -52,7 +52,7 @@ internal sealed class MessageService : IMessageService
         try
         {
             var message = _mapper.Map<Message>(createMessageDto);
-
+            message.From = _userId;
             await _messages
                 .InsertOneAsync(message);
 

@@ -1,0 +1,8 @@
+.message {
+    margin-right: 1rem;
+    &.messageSender {
+        margin-right: 0rem;
+        margin-left: 1rem;
+        text-align: right;
+    }
+}
