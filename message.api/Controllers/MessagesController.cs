@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using message.api.Filters;
 using message.handlers.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,7 @@ namespace message.api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(OwnedFilterAttribute))]
         public async Task<IActionResult> Delete(string id)
         {
             await _mediator

@@ -9,6 +9,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 })
 export class AppComponent implements OnInit {
   title = 'stui';
+  isAuthenticated=false;
   constructor(
     private oidcService: OidcSecurityService,
     private router: Router) {
@@ -19,10 +20,9 @@ export class AppComponent implements OnInit {
     this.oidcService
       .checkAuth()
       .subscribe(({ isAuthenticated, userData, accessToken, idToken }) => {
+      this.isAuthenticated=isAuthenticated;
         console.log(isAuthenticated);
         isAuthenticated ? this.router.navigate(['messages']) : this.router.navigate(['landing']);
       });
-
-    // this.oidcService.logoff();
   }
 }

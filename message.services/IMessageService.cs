@@ -24,4 +24,6 @@ public interface IMessageService
     /// <returns></returns>
     Task<IEnumerable<MessageDto>> GetMessages(int page = 0, int pageSize = 50);
 
+    Task<Message> GetMessage(string messageId);
+
 }

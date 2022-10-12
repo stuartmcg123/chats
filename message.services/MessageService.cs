@@ -47,6 +47,13 @@ internal sealed class MessageService : IMessageService
         return castedMessages;
     }
 
+    public async Task<Message> GetMessage(string messageId)
+    {
+        return await _messages
+            .Find(Builders<Message>.Filter.Eq(c => c.Id, messageId))
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<MessageDto> AddMessage(CreateMessageDto createMessageDto)
     {
         try
