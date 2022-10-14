@@ -22,7 +22,7 @@ namespace message.handlers
         public async Task<IEnumerable<MessageDto>> Handle(GetMessagesRequest request, CancellationToken cancellationToken)
         {
             return await _messageService
-                .GetMessages(request.Page, request.PageSize);
+                .GetMessages(request.Page, request.PageSize, cancellationToken);
         }
 
         public async Task<Unit> Handle(DeleteMessagesRequest request, CancellationToken cancellationToken)
@@ -36,7 +36,7 @@ namespace message.handlers
         {
             var message = await _messageService.AddMessage(request.Message);
 
-            await _mediator.Publish(new NewMessageNotification(message));
+            await _mediator.Publish(new NewMessageNotification(message), cancellationToken);
 
             return Unit.Value;
         }

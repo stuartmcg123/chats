@@ -22,6 +22,8 @@ public interface IMessageService
     /// Get user's messages.s
     /// </summary>
     /// <returns></returns>
-    Task<IEnumerable<MessageDto>> GetMessages(int page = 0, int pageSize = 50);
+    Task<IEnumerable<MessageDto>> GetMessages(int page = 0, int pageSize = 50, CancellationToken cancellationToken = default);
+
+    Task<Message> GetMessage(string messageId);
 
 }

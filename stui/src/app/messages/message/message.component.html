@@ -1,5 +1,5 @@
-<div class="message" [ngClass]="{messageSender: token}">
+<div class="message" [ngClass]="{messageSender: token == message.from}">
     {{message.body}}
     {{message.created | date:'medium'}}
-    <button (click)="delete()">Delete</button>
+    <button *ngIf="token == message.from" (click)="delete()">Delete</button>
 </div>

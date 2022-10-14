@@ -12,12 +12,15 @@ public static class AddMessageServiceExtensions
         services.AddSingleton<MongoClient>((sp) =>
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
+            Console.WriteLine($"Connection string: {configuration.GetConnectionString("mongoDb")}");
+
             return new MongoClient(configuration.GetConnectionString("mongoDb"));
         });
 
         services.AddSingleton<IMongoDatabase>((sp) =>
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
+            Console.WriteLine($"Connection string: {configuration.GetConnectionString("mongoDb")}");
             var url = MongoUrl.Create(configuration.GetConnectionString("mongoDb"));
             var client = sp.GetRequiredService<MongoClient>();
             return client.GetDatabase(url.DatabaseName);
