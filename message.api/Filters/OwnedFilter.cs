@@ -1,7 +1,6 @@
 ﻿using message.services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MongoDB.Bson.IO;
 using System.Security.Claims;
 
 namespace message.api.Filters

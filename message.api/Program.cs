@@ -77,8 +77,6 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors();
 
-app.UseHttpsRedirection();
-
 app.Use((context, next) =>
 {
     var token = context.Request.Query["access_token"].ToString();

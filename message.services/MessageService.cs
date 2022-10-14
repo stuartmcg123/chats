@@ -28,7 +28,10 @@ internal sealed class MessageService : IMessageService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<MessageDto>> GetMessages(int page = 0, int pageSize = 50)
+    public async Task<IEnumerable<MessageDto>> GetMessages(
+        int page = 0, 
+        int pageSize = 50,
+        CancellationToken cancellationToken = default)
     {
         var messages = _messages
              .Find(Builders<Message>.Filter.Empty)
@@ -40,7 +43,8 @@ internal sealed class MessageService : IMessageService
         var castedMessages = await messages.Project(
             Builders<Message>
             .Projection
-            .Expression(m => _mapper.Map<MessageDto>(m))).ToListAsync();
+            .Expression(m => _mapper.Map<MessageDto>(m)))
+            .ToListAsync(cancellationToken);
 
         castedMessages.Reverse();
 
