@@ -8,4 +8,3 @@ RUN npm run build
 
 FROM nginx:1.17.1-alpine
 COPY --from=base /app/dist/stui /usr/share/nginx/html
-# COPY default.conf /etc/nginx/conf.d/default.conf
