@@ -15,7 +15,7 @@ spec:
   spec:
    containers:
    - name: messages
-     image: stuartmcg/messages:v0.3
+     image: stuartmcg/messages:v0.4
      envFrom:
      - configMapRef:
         name: mongo-connection
@@ -29,27 +29,27 @@ spec:
   app: messages
  ports:
  - port: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
- name: messges-ingress
- annotations:
-  cert-manager.io/cluster-issuer: "prod-site"
-spec:
- ingressClassName: nginx
- tls:
- - hosts:
-   - messages.stuartmcgillivray.com
-   secretName: stuwheel-tls
- rules:
- - host: messages.stuartmcgillivray.com
-   http:
-    paths:
-    - pathType: Prefix
-      path: "/"
-      backend:
-       service:
-        name: messages
-        port:
-         number: 80
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+# name: messges-ingress
+# annotations:
+#  cert-manager.io/cluster-issuer: "prod-site"
+#spec:
+# ingressClassName: nginx
+# tls:
+# - hosts:
+#   - messages.stuartmcgillivray.com
+#   secretName: stuwheel-tls
+# rules:
+# - host: messages.stuartmcgillivray.com
+#   http:
+#    paths:
+#    - pathType: Prefix
+#      path: "/"
+#      backend:
+#       service:
+#        name: messages
+#        port:
+#         number: 80

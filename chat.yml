@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+ name: chat
+ labels:
+  app: chat
+spec:
+ selector:
+  matchLabels:
+   app: chat
+ template:
+  metadata:
+   labels:
+    app: chat
+  spec:
+   containers:
+   - name: chat
+     image: stuartmcg/stui:v0.4
+     envFrom:
+     - configMapRef:
+        name: mongo-connection
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: chat
+spec:
+ selector:
+  app: chat
+ ports:
+ - port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: chat-ingress
+ annotations:
+  cert-manager.io/cluster-issuer: "prod-site"
+spec:
+ ingressClassName: nginx
+ tls:
+ - hosts:
+   - chat.stuartmcgillivray.com
+   secretName: chat-tls
+ rules:
+ - host: chat.stuartmcgillivray.com
+   http:
+    paths:
+    - pathType: Prefix
+      path: "/"
+      backend:
+       service:
+        name: chat
+        port:
+         number: 80

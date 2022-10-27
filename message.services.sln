@@ -19,6 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "message.profile", "message.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{0142BCAC-A902-46BA-AA32-18C65A60ABD8}"
 	ProjectSection(SolutionItems) = preProject
+		chat.yml = chat.yml
 		messages.yml = messages.yml
 	EndProjectSection
 EndProject

@@ -6,9 +6,9 @@ import { AuthModule } from 'angular-auth-oidc-client';
     imports: [AuthModule.forRoot({
         config: {
               authority: 'https://identity.stuartmcgillivray.com',
-              redirectUrl: "http://localhost:4200/callback",
-              postLogoutRedirectUri: "http://localhost:4200",
-              clientId: 'bestie-chat',
+              redirectUrl: `${location.origin}/callback`,
+              postLogoutRedirectUri: location.origin,
+              clientId: 'bestie-chat-live',
               scope: 'openid profile offline_access',
               responseType: 'code',
               silentRenew: true,

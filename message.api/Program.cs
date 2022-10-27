@@ -40,7 +40,7 @@ builder.Services.AddSwaggerGen(config =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMessageServices();
 builder.Services.AddCors(p => p.AddDefaultPolicy(dp => dp
-    .WithOrigins("http://localhost:4200")
+    .WithOrigins("http://localhost:4200", "https://chat.stuartmcgillivray.com")
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
